@@ -1,39 +1,33 @@
 public abstract class Jogador{
-    public Jogador(short atk, short def){
+    public Jogador(int atk, int def){
         this.atk = atk;
         this.def = def;
         this.y = 3;
         this.x = 3;
     }
-    protected short atk,def,x,y;
+    protected int atk,def,x,y;
 
-    public short getAtk(){
+    public int getAtk(){
         return this.atk;
     }
-    public short getDef(){
+    public int getDef(){
         return this.atk;
     }
-    public short getX(){
+    public int getX(){
         return this.x;
     }
-    public short getY(){
+    public int getY(){
         return this.y;
     }
 
-    public void setAtk(short atk){
-        this.atk = atk;
-    }
-    public abstract void setDef(short def){
-        this.atk = def;
-    }
-    public void setX(short x){
+    public abstract void setDef(int def);
+    public abstract void setAtk(int atk);
+
+    public void setX(int x){
         this.x = x;
     }
-    public void setY(short y){
+    public void setY(int y){
         this.y = y;
-    }
-    public abstract void setAtk(short atk){
-        this.atk = atk;
     }
     public void movimentar(){
         //Implementar Método

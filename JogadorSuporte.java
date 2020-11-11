@@ -1,11 +1,11 @@
-public class JogadorSimples extends Jogador{
-    public JogadorSimples(){
+public class JogadorSuporte extends Jogador{
+    public JogadorSuporte(){
         super(2,6);
     }
-    public void setAtk(short atk){
+    public void setAtk(int atk){
         this.atk = atk;
     }
-    public void setDef(short def){
+    public void setDef(int def){
         this.atk = def;
     }
     public void recuperarDefesa(){
