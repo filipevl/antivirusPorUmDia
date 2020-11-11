@@ -1,7 +1,5 @@
-/**
- *
- * @author Gabriel Lopes
- */
+import java.util.Random;
+
 public class Inimigo {
     public Inimigo(int atk, int def){
         this.atk = atk;
@@ -22,7 +20,7 @@ public class Inimigo {
     public void setDef(short def) {
         this.def = def;
     }
-    
+
     public void gerarValores(){
         Random gerador = new Random();
         for(int i = 1; i<2; i++){
