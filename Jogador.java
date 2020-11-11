@@ -1,11 +1,11 @@
-public class Jogador{
+public abstract class Jogador{
     public Jogador(short atk, short def){
         this.atk = atk;
         this.def = def;
         this.y = 3;
         this.x = 3;
     }
-    private short atk,def,x,y;
+    protected short atk,def,x,y;
 
     public short getAtk(){
         return this.atk;
@@ -23,7 +23,7 @@ public class Jogador{
     public void setAtk(short atk){
         this.atk = atk;
     }
-    public void setDef(short def){
+    public abstract void setDef(short def){
         this.atk = def;
     }
     public void setX(short x){
@@ -32,7 +32,18 @@ public class Jogador{
     public void setY(short y){
         this.y = y;
     }
-    public void setAtk(short atk){
+    public abstract void setAtk(short atk){
         this.atk = atk;
+    }
+    public void movimentar(){
+        //Implementar Método
+    }
+    public void atacar(){
+        //Implementar Método
+
+    }
+    public void procurar(){
+        //Implementar Método
+
     }
 }
