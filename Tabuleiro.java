@@ -1,7 +1,7 @@
 public class Tabuleiro{
     public Tabuleiro(){
     }
-    private Setor posicao = new Setor[4][4];
+    private Setor[][] posicao = new Setor[4][4];
     public void inicializa(posicao){
         for(short x=0;x<5;x++){
             for(short y=0;y<5;y++){
