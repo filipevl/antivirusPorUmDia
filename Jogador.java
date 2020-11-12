@@ -21,7 +21,7 @@ public abstract class Jogador{
     }
 
     public abstract void setDef(int def);
-    public abstract void setAtk(int atk);
+    public abstract void setAtk(JogadorSimples j,int atk);
 
     public void setX(int x){
         this.x = x;
