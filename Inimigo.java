@@ -10,22 +10,23 @@ public class Inimigo {
     public int getAtk() {
         return atk;
     }
-    public void setAtk(short atk) {
+    public void setAtk(int atk) {
         this.atk = atk;
     }
 
     public int getDef() {
         return def;
     }
-    public void setDef(short def) {
+    public void setDef(int def) {
         this.def = def;
     }
 
     public void gerarValores(){
         Random gerador = new Random();
-        for(int i = 1; i<2; i++){
-            atk=gerador.nextInt(4);
-            def=gerador.nextInt(4);
-        }
+        atk=gerador.nextInt(4);
+        def=gerador.nextInt(4);
+    }
+    public void atacar(){
+
     }
 }
