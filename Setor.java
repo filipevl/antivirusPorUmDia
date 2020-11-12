@@ -9,23 +9,22 @@ public class Setor{
         this.fonteDeInfeccao=fonteDeInfeccao;
     }
     public Setor(){
-        this.primeiroLado=sortear();
-        this.segundoLado=sortear();
-        this.terceiroLado=sortear();
-        this.quartoLado=sortear();
         this.fonteDeInfeccao=false;
     }
     public Setor(boolean fonte){
-        this.primeiroLado=sortear();
-        this.segundoLado=sortear();
-        this.terceiroLado=sortear();
-        this.quartoLado=sortear();
         this.fonteDeInfeccao=true;
     }
     private boolean primeiroLado, segundoLado, terceiroLado, quartoLado,fonteDeInfeccao;
 
     public boolean getFonteDeInfeccao(){
         return this.fonteDeInfeccao;
+    }
+
+    public void setLados(){
+        this.primeiroLado=sortear();
+        this.segundoLado=sortear();
+        this.terceiroLado=sortear();
+        this.quartoLado=sortear();
     }
 
     public boolean sortear(){
