@@ -22,6 +22,35 @@ public class Tabuleiro{
         }
     }
 
+    public boolean portaEsquerdaAberta(Setor[][] posicao,int posicaoX,int posicaoY){
+        if(posicao[posicaoX][posicaoY].getEsquerda()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean portaDireitaAberta(Setor[][] posicao,int posicaoX,int posicaoY){
+        if(posicao[posicaoX][posicaoY].getDireita()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean portaBaixoAberta(Setor[][] posicao,int posicaoX,int posicaoY){
+        if(posicao[posicaoX][posicaoY].getBaixo()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean portaCimaAberta(Setor[][] posicao,int posicaoX,int posicaoY){
+        if(posicao[posicaoX][posicaoY].getCima()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public Setor[][] getPosicao(){
         return posicao;
     }
