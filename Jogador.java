@@ -29,8 +29,38 @@ public abstract class Jogador{
     public void setY(int y){
         this.y = y;
     }
-    public void movimentar(){
-        //Implementar Método
+    public void movimentar(Tabuleiro tab,JogadorSimples j,int posicao){
+        // O método movimentar recebe como paramêtro o objeto do tipo tabuleiro e
+        // um objeto do tipo jogador simples
+        // Esse método trata inteiros da seguinte forma:
+        // Case 1: o jogador que movimentar para cima
+        // Case 2: o jogador que movimentar para baixo
+        // Case 3: o jogador que movimentar para direita
+        // Case 4: o jogador que movimentar para esquerda
+        switch(posicao){
+            case 1:
+                if(tab.portaCimaAberta(tab.getPosicao(),getX(),getY())){
+                    setY(getY()+1);
+                }
+                break;
+            case 2:
+                if(tab.portaBaixoAberta(tab.getPosicao(),getX(),getY())){
+                    setY(getY()-1);
+                }
+                break;
+            case 3:
+                if(tab.portaDireitaAberta(tab.getPosicao(),getX(),getY())){
+                    setY(getx()+1);
+                }
+                break;
+            case 4:
+                if(tab.portaEsquerdaAberta(tab.getPosicao(),getX(),getY())){
+                    setY(getX()-1);
+                }
+                break;
+            default:
+                break;
+        }
     }
     public void atacar(){
         //Implementar Método
