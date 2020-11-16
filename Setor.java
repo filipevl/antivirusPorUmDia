@@ -1,11 +1,11 @@
 import java.util.Random;
 
 public class Setor{
-    public Setor(boolean primeiroLado,boolean segundoLado,boolean terceiroLado,boolean quartoLado, boolean fonteDeInfeccao){
-        this.primeiroLado=primeiroLado;
-        this.segundoLado=segundoLado;
-        this.terceiroLado=terceiroLado;
-        this.quartoLado=quartoLado;
+    public Setor(boolean esquerda,boolean cima,boolean direita,boolean baixo, boolean fonteDeInfeccao){
+        this.esquerda=esquerda;
+        this.cima=cima;
+        this.direita=direita;
+        this.baixo=baixo;
         this.fonteDeInfeccao=fonteDeInfeccao;
     }
     public Setor(){
@@ -14,17 +14,17 @@ public class Setor{
     public Setor(boolean fonte){
         this.fonteDeInfeccao=true;
     }
-    private boolean primeiroLado, segundoLado, terceiroLado, quartoLado,fonteDeInfeccao;
+    private boolean esquerda, cima, direita, baixo,fonteDeInfeccao;
 
     public boolean getFonteDeInfeccao(){
         return this.fonteDeInfeccao;
     }
 
     public void setLados(){
-        this.primeiroLado=sortear();
-        this.segundoLado=sortear();
-        this.terceiroLado=sortear();
-        this.quartoLado=sortear();
+        this.esquerda=sortear();
+        this.cima=sortear();
+        this.direita=sortear();
+        this.baixo=sortear();
     }
 
     public boolean sortear(){
