@@ -27,6 +27,19 @@ public class Setor{
         this.baixo=sortear();
     }
 
+    public boolean getEsquerda(){
+        return this.esquerda;
+    }
+    public boolean getCima(){
+        return this.cima;
+    }
+    public boolean getBaixo(){
+        return this.baixo;
+    }
+    public boolean getDireita(){
+        return this.direita;
+    }
+
     public boolean sortear(){
         Random gerador = new Random();
         int a = gerador.nextInt(100);
