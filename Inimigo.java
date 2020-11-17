@@ -17,8 +17,12 @@ public class Inimigo {
     public int getDef() {
         return def;
     }
-    public void setDef(int def) {
-        this.def = def;
+    public void setAtk(Jogador j) {
+        if(j.getDef()<getAtk()){
+            j.setDef(0);
+        }else{
+            j.setDef(j.getDef()-getAtk());
+        }
     }
 
     public void gerarValores(){
