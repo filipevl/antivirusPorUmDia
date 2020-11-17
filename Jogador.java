@@ -62,9 +62,9 @@ public abstract class Jogador{
                 break;
         }
     }
-    public void atacar(){
-        //Implementar Método
-
+    public void atacar(Inimigo i){
+        i.setDef(getAtk()-getDef());
+        return;
     }
     public void procurar(){
         //Implementar Método
