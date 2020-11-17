@@ -7,8 +7,8 @@ public class Tabuleiro{
     public void inicializa(Setor[][] posicao){
         Random gerador = new Random();
         int fonteInfeccao[] = new int[1];
-        fonteInfeccao[0] = gerador.nextInt(4);
-        fonteInfeccao[1] = gerador.nextInt(4);
+        fonteInfeccao[0] = gerador.nextInt(6);
+        fonteInfeccao[1] = gerador.nextInt(6);
         for(int x=0;x<5;x++){
             for(int y=0;y<5;y++){
                 if(x==3&&y==3){

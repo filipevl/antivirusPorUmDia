@@ -1,9 +1,9 @@
 import java.util.Random;
 
 public class Inimigo {
-    public Inimigo(int atk, int def){
-        this.atk = atk;
-        this.def = def;
+    public Inimigo(int atkDef){
+        this.atk = atkDef;
+        this.def = atkDef;
     }
     private int atk, def;
 

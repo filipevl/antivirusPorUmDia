@@ -1,3 +1,4 @@
+import java.util.Random;
 public abstract class Jogador{
     public Jogador(int atk, int def){
         this.atk = atk;
@@ -66,8 +67,26 @@ public abstract class Jogador{
         i.setDef(getAtk()-getDef());
         return;
     }
-    public void procurar(){
-        //Implementar Método
-
+    public int procurar(){
+        Random gerador = new Random();
+        int num = gerador.nextInt(7);
+        if(num==0){
+            num += 1;
+        }
+        if(num>=1||num<=3){
+            return 0;
+        }
+        if(num==4){
+            setDef(getDef()+1);
+            return 0;
+        }
+        if(num==5){
+            setDef(getDef()+2);
+            return 0;
+        }
+        if(num==6){
+            setDef(getDef()+1);
+            return 0;
+        }
     }
 }

@@ -15,9 +15,25 @@ public class Setor{
         this.fonteDeInfeccao=true;
     }
     private boolean esquerda, cima, direita, baixo,fonteDeInfeccao;
+    private Inimigo[] vetor = new Inimigo[4];
 
     public boolean getFonteDeInfeccao(){
         return this.fonteDeInfeccao;
+    }
+
+    public Inimigo gerarInimigos(){
+        Random gerador = new Random();
+        int atkDef = gerador.nextInt(4);
+        if(atkDef==0){
+            atkDef += 1;
+        }
+        return new Inimigo(atkDef);
+    }
+
+    public void instanciarInimigosNoVetor(int numeroDeInimigos){
+        for(int i=0;i<numeroDeInimigos;i++){
+            vetor[i]=gerarInimigos();
+        }
     }
 
     public void setLados(){
