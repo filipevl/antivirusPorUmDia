@@ -1,10 +1,10 @@
 public class JogadorSuporte extends Jogador{
     public JogadorSuporte(){
-        super(2,6);
+        super(1,7);
     }
 
     public boolean existe(JogadorSimples j){
-        if(j.getAtk()>0&&j.getDef()>0){
+        if(j.getDef()>0){
             return true;
         }else{
             return false;
@@ -15,18 +15,28 @@ public class JogadorSuporte extends Jogador{
         this.def = def;
     }
 
-    public void recuperarDefesa(JogadorSimples j){
-        if(existe(j)){
-            if(j.getDef()>=2){
-                j.setDef(j.getDef()-2);
-                setAtk(j,2);
-            }else{
-                setAtk(j,2);
-            }
-        }else{
+    public void recuperarDefesaSimples(JogadorSimples j){
+        if(existe(j))
+            if(j.getX()==getX()==j.getY()==jgetY());
+            j.setDef(j.getDef()+2);
+        else
             return;
-        }
     }
+    public void recuperarDefesaSuporte(JogadoSuporte js){
+        if(existe(j))
+            if(js.getDef()>=1){
+                js.setDef(js.getDef()+2);
+        else
+            return;
+    }
+
+    public void recuperarDefesa(Jogador j){
+        if(existe(j))
+            j.setDef(j.getDef()+2);
+        else
+            return;
+    }
+
 
     public void setAtk(JogadorSimples j, int atk){
         if(existe(j)){
