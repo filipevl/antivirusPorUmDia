@@ -1,2 +1,7 @@
 Setor.class
 Tabuleiro.class
+Inimigo.class
+Jogador.class
+JogadorSimples.class
+JogadorSuporte.class
+Turno.class

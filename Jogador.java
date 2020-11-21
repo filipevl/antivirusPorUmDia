@@ -51,7 +51,7 @@ public abstract class Jogador{
                 break;
             case 3:
                 if(tab.portaDireitaAberta(tab.getPosicao(),getX(),getY())){
-                    setY(getx()+1);
+                    setY(getX()+1);
                 }
                 break;
             case 4:
@@ -88,5 +88,5 @@ public abstract class Jogador{
             setDef(getDef()+1);
             return 0;
         }
-    }
+    }}
 }

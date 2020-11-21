@@ -16,21 +16,15 @@ public class JogadorSuporte extends Jogador{
     }
 
     public void recuperarDefesaSimples(JogadorSimples j){
-        if(existe(j))
-            if(j.getX()==getX()==j.getY()==jgetY());
+        if(j.getX() == getX() && j.getY() == j.getY())
             j.setDef(j.getDef()+2);
-        else
-            return;
     }
-    public void recuperarDefesaSuporte(JogadoSuporte js){
-        if(existe(j))
-            if(js.getDef()>=1){
-                js.setDef(js.getDef()+2);
-        else
-            return;
+    public void recuperarDefesaSuporte(JogadorSuporte js){
+        if(js.getDef()>=1)
+            js.setDef(js.getDef()+2);
     }
 
-    public void recuperarDefesa(Jogador j){
+    public void recuperarDefesa(JogadorSimples j){
         if(existe(j))
             j.setDef(j.getDef()+2);
         else

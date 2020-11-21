@@ -3,20 +3,32 @@ import java.util.Random;
 public class Tabuleiro{
     public Tabuleiro(){
     }
-    private Setor[][] posicao = new Setor[4][4];
-    public void inicializa(Setor[][] posicao){
+    private Setor[][] posicao = new Setor[5][5];
+    public void init(Setor[][] posicao){
         Random gerador = new Random();
-        int fonteInfeccao[] = new int[1];
-        fonteInfeccao[0] = gerador.nextInt(6);
-        fonteInfeccao[1] = gerador.nextInt(6);
-        for(int x=0;x<5;x++){
-            for(int y=0;y<5;y++){
-                if(x==3&&y==3){
-                    posicao[x][y] = new Setor(true,true,true,true,false); //Posição C
-                }else if(x==fonteInfeccao[0]&&y==fonteInfeccao[1]){
-                    posicao[x][y] = new Setor(true); //Fonte de infecção
+        int x,y,numInimigos;
+        x = gerador.nextInt(6);
+        y = gerador.nextInt(6);
+        numInimigos = gerador.nextInt(6);
+        do{
+            if(x==3)
+                x = gerador.nextInt(6);
+            if(y==3)
+                y = gerador.nextInt(6);
+            if(numInimigos==0){
+                numInimigos = gerador.nextInt(6);
+            }
+        }while(x==3 || y==3 || numInimigos==0);
+
+        for(int aux1=0; aux1<5; aux1++){
+            for(int aux2=0 ;aux2<5 ; aux2++){
+                if(aux1==3 && aux2==3){
+                    posicao[aux1][aux2] = new Setor(true,true,true,true,false); //Posição C
+                }else if(aux1==aux1&&aux2==aux2){
+                    posicao[aux1][aux2] = new Setor(true); //Fonte de infecção
                 }else{
-                    posicao[x][y] = new Setor();
+                    posicao[aux1][aux2] = new Setor();
+                    posicao[aux1][aux2].init(numInimigos,x,y);
                 }
             }
         }

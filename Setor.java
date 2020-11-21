@@ -21,19 +21,20 @@ public class Setor{
         return this.fonteDeInfeccao;
     }
 
-    public Inimigo gerarInimigos(){
+    public Inimigo gerarInimigos(int x,int y){
         Random gerador = new Random();
         int atkDef = gerador.nextInt(4);
         if(atkDef==0){
             atkDef += 1;
         }
-        return new Inimigo(atkDef);
+        return new Inimigo(atkDef,x,y);
     }
 
-    public void instanciarInimigosNoVetor(int numeroDeInimigos){
+    public void init(int numeroDeInimigos,int x,int y){
         for(int i=0;i<numeroDeInimigos;i++){
-            vetor[i]=gerarInimigos();
+            vetor[i]=gerarInimigos(x,y);
         }
+        setLados();
     }
 
     public void setLados(){

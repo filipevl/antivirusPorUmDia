@@ -1,12 +1,19 @@
 import java.util.Random;
 
-public class Inimigo {
-    public Inimigo(int atkDef){
+public class Inimigo{
+    public Inimigo(int atkDef,int x,int y){
         this.atk = atkDef;
         this.def = atkDef;
+        this.x=x;
+        this.y=y;
     }
-    private int atk, def;
-
+    private int atk, def,x,y;
+    public int getX(){
+        return this.x;
+    }
+    public int getY(){
+        return this.y;
+    }
     public int getAtk() {
         return atk;
     }
@@ -46,4 +53,5 @@ public class Inimigo {
             return;
         }
     }
+
 }
