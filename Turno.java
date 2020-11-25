@@ -44,24 +44,26 @@ public class Turno {
         JogadorSimples p1 = new JogadorSimples();
         JogadorSuporte p2 = new JogadorSuporte();
         do {
-            System.out.printf("------------------------------\n");
-            System.out.printf("|    Antivirus por um dia    |\n");
-            System.out.printf("------------------------------\n");
-            System.out.printf("    1   2   3   4   5\n");
-            System.out.printf("  |---|---|---|---|---|\t\t\t S\n");
-            System.out.printf("1 |   |   |   |   |   |\t\t\t S\n");
-            System.out.printf("  |---|---|---|---|---|\t\t\t S\n");
-            System.out.printf("2 |   |   |   |   |   |\t\t\t S\n");
-            System.out.printf("  |---|---|-*-|---|---|\t\t\t S\n");
-            System.out.printf("3 |   |   * C *   |   |\t\t\t S\n");
-            System.out.printf("  |---|---|-*-|---|---|\t\t\t S\n");
-            System.out.printf("4 |   |   |   |   |   |\t\t\t S\n");
-            System.out.printf("  |---|---|---|---|---|\t\t\t S\n");
-            System.out.printf("5 |   | X |   |   |   |\t\t\t S\n");
-            System.out.printf("  |---|---|---|---|---|\t\t\t S\n");
-
-
+            tabuleiro(p1, p2,tab);
             i++;
         } while (i <= 25); // Número maximo de turno possíveis
+    }
+
+    public static void tabuleiro(JogadorSimples j1, JogadorSuporte j2,Tabuleiro tab) {
+        System.out.printf("------------------------------\n");
+        System.out.printf("|    Antivirus por um dia    |\n");
+        System.out.printf("------------------------------\n");
+        System.out.printf("    1   2   3   4   5\n");
+        System.out.printf("  |---|---|---|---|---|\t\t\t \n");
+        System.out.printf("1 |   |   |   |   |   |\t\t\t    Setor[%d,%d]\n",j1.x,j1.y);
+        System.out.printf("  |---|---|---|---|---|\t\t\t \n");
+        System.out.printf("2 |   |   |   |   |   |\t\t\t |------*------|\n");
+        System.out.printf("  |---|---|-*-|---|---|\t\t\t |             |\n");
+        System.out.printf("3 |   |   * C *   |   |\t\t\t |             |\n");
+        System.out.printf("  |---|---|-*-|---|---|\t\t\t *             *\n");
+        System.out.printf("4 |   |   |   |   |   |\t\t\t | P1       P2 |\n");
+        System.out.printf("  |---|---|---|---|---|\t\t\t | %d/%d     %d/%d |\n",j1.atk,j1.def,j2.atk,j2.def);
+        System.out.printf("5 |   | X |   |   |   |\t\t\t |------*------|\n");
+        System.out.printf("  |---|---|---|---|---|\t\t\t \n");
     }
 }

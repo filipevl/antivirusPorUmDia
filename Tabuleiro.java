@@ -24,11 +24,10 @@ public class Tabuleiro{
             for(int aux2=0 ;aux2<5 ; aux2++){
                 if(aux1==3 && aux2==3){
                     posicao[aux1][aux2] = new Setor(true,true,true,true,false); //Posição C
-                }else if(aux1==aux1&&aux2==aux2){
+                }else if(aux1==x&&aux2==y){
                     posicao[aux1][aux2] = new Setor(true); //Fonte de infecção
                 }else{
                     posicao[aux1][aux2] = new Setor();
-                    posicao[aux1][aux2].init(numInimigos,x,y);
                 }
             }
         }

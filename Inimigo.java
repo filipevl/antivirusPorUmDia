@@ -24,10 +24,10 @@ public class Inimigo{
         this.def = def;
     }
     public void setAtk(Jogador j) {
-        if(j.getDef()<getAtk()){
+        if(j.def<getAtk()){
             j.setDef(0);
         }else{
-            j.setDef(j.getDef()-getAtk());
+            j.setDef(j.def-getAtk());
         }
     }
 
@@ -43,11 +43,11 @@ public class Inimigo{
             num += 1;
         }
         if(num%2==0){
-            if(j1.getX()==getX()&&j1.getY()==getY()){
-                j1.setDef(j1.getDef()-getAtk());
+            if(j1.x==getX()&&j1.y==getY()){
+                j1.setDef(j1.def-getAtk());
             }
-            if(j2.getX()==getX()&&j2.getY()==getY()){
-                j2.setDef(j2.getDef()-getAtk());
+            if(j2.x==getX()&&j2.y==getY()){
+                j2.setDef(j2.def-getAtk());
             }
         }else{
             return;
