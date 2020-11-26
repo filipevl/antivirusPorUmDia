@@ -4,21 +4,27 @@ public class Tabuleiro{
     public Tabuleiro(){
     }
     private Setor[][] posicao = new Setor[5][5];
+    public void initSetor(int x,int y){
+        Random gerador = new Random();
+        int numInimigos = gerador.nextInt(6);
+        do{
+            if(numInimigos==0){
+                numInimigos = gerador.nextInt(6);
+            }
+        }while(numInimigos==0);
+        posicao[x][y].init(numInimigos, x, y);
+    }
     public void init(Setor[][] posicao){
         Random gerador = new Random();
-        int x,y,numInimigos;
+        int x,y;
         x = gerador.nextInt(6);
         y = gerador.nextInt(6);
-        numInimigos = gerador.nextInt(6);
         do{
             if(x==3)
                 x = gerador.nextInt(6);
             if(y==3)
                 y = gerador.nextInt(6);
-            if(numInimigos==0){
-                numInimigos = gerador.nextInt(6);
-            }
-        }while(x==3 || y==3 || numInimigos==0);
+        }while(x==3 || y==3);
 
         for(int aux1=0; aux1<5; aux1++){
             for(int aux2=0 ;aux2<5 ; aux2++){

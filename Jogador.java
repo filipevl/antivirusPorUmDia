@@ -34,21 +34,25 @@ public abstract class Jogador {
             case 1:
                 if (tab.portaCimaAberta(tab.getPosicao(), this.x, this.y)) {
                     setY(this.y + 1);
+                    tab.initSetor(x, y);
                 }
                 break;
             case 2:
                 if (tab.portaBaixoAberta(tab.getPosicao(), this.x, this.y)) {
                     setY(this.y - 1);
+                    tab.initSetor(x, y);
                 }
                 break;
             case 3:
                 if (tab.portaDireitaAberta(tab.getPosicao(), this.x, this.y)) {
                     setY(this.x + 1);
+                    tab.initSetor(x, y);
                 }
                 break;
             case 4:
                 if (tab.portaEsquerdaAberta(tab.getPosicao(), this.x, this.y)) {
                     setY(this.x - 1);
+                    tab.initSetor(x, y);
                 }
                 break;
             default:
