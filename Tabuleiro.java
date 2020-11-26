@@ -4,7 +4,7 @@ public class Tabuleiro{
     public Tabuleiro(){
     }
     private Setor[][] posicao = new Setor[5][5];
-    public void initSetor(int x,int y){
+    public void initSetor(int x,int y,int acao){ // acao representa qual movimento o jogador fará
         Random gerador = new Random();
         int numInimigos = gerador.nextInt(6);
         do{
@@ -12,7 +12,7 @@ public class Tabuleiro{
                 numInimigos = gerador.nextInt(6);
             }
         }while(numInimigos==0);
-        posicao[x][y].init(numInimigos, x, y);
+        posicao[x][y].init(numInimigos, x, y,getPosicao(),acao);
     }
     public void init(Setor[][] posicao){
         Random gerador = new Random();

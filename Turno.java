@@ -47,13 +47,12 @@ public class Turno {
             tabuleiro(p1, p2,tab);
             i++;
         } while (i <= 25); // Número maximo de turno possíveis
+
     }
 
+
     public static void tabuleiro(JogadorSimples j1, JogadorSuporte j2,Tabuleiro tab) {
-        System.out.printf("------------------------------\n");
-        System.out.printf("|    Antivirus por um dia    |\n");
-        System.out.printf("------------------------------\n");
-        System.out.printf("    1   2   3   4   5\n");
+        cabecalho();
         System.out.printf("  |---|---|---|---|---|\t\t\t \n");
         System.out.printf("1 |   |   |   |   |   |\t\t\t    Setor[%d,%d]\n",j1.x,j1.y);
         System.out.printf("  |---|---|---|---|---|\t\t\t \n");
@@ -66,4 +65,28 @@ public class Turno {
         System.out.printf("5 |   | X |   |   |   |\t\t\t |------*------|\n");
         System.out.printf("  |---|---|---|---|---|\t\t\t \n");
     }
+
+    public static void cabecalho(){
+        System.out.printf("------------------------------\n");
+        System.out.printf("|    Antivirus por um dia    |\n");
+        System.out.printf("------------------------------\n");
+        System.out.printf("    1   2   3   4   5\n");
+    }
+    public static void setores(Setor[][] setor){
+        for(int i=0;i<15;i++){
+            System.out.printf("%d  |-",i/3);
+            if(setor[0][0].getEsquerda()){
+                /* Função que retona esse quadrado com as condições
+                |---|
+                |   |
+                |---|
+                */
+            }
+        }
+    }
+
+    public static void turnoP(JogadorSimples j1, JogadorSuporte j2, Inimigo i){
+        
+    }
+
 }
