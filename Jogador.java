@@ -1,26 +1,22 @@
 import java.util.Random;
 
 public abstract class Jogador {
+    protected int atk, def, x, y;
     public Jogador(int atk, int def) {
         this.atk = atk;
         this.def = def;
         this.y = 3;
         this.x = 3;
     }
-
-    protected int atk, def, x, y;
-
-    public abstract void setDef(int def);
-
-    public abstract void setAtk(JogadorSimples j, int atk);
-
+    
     public void setX(int x) {
         this.x = x;
     }
-
     public void setY(int y) {
         this.y = y;
     }
+    public abstract void setDef(int def);
+    public abstract void setAtk(JogadorSimples j, int atk);
 
     public void movimentar(Tabuleiro tab, JogadorSimples j, int posicao) {
         // O método movimentar recebe como paramêtro o objeto do tipo tabuleiro e
@@ -67,13 +63,11 @@ public abstract class Jogador {
                 break;
         }
     }
-
     public void atacar(Inimigo i) {
         i.setDef(this.atk - this.def);
         return;
     }
-
-    public void procurar() {
+    public void procurar(Setor j) {
         Random gerador = new Random();
         int num = gerador.nextInt(7);
         if (num == 0) {
@@ -89,6 +83,15 @@ public abstract class Jogador {
         }
         if (num == 6) {
             setDef(this.def + 1);
+            Inimigo adv[] = new Inimigo[5];
+            adv = j.getInimigos();
+            for(int i=0;i<adv.length;i++){
+                if(adv[i].getAtk()!=0){
+                    return;
+                }else{
+                    adv[i].setDef(adv[i].getDef()-1);
+                }
+            }
         }
     }
 }

@@ -1,8 +1,6 @@
 import java.util.Random;
 
 public class Tabuleiro{
-    public Tabuleiro(){
-    }
     private Setor[][] posicao = new Setor[5][5];
     public void initSetor(int x,int y,int acao){ // acao representa qual movimento o jogador fará
         Random gerador = new Random();
@@ -29,11 +27,21 @@ public class Tabuleiro{
         for(int aux1=0; aux1<5; aux1++){
             for(int aux2=0 ;aux2<5 ; aux2++){
                 if(aux1==3 && aux2==3){
-                    posicao[aux1][aux2] = new Setor(true,true,true,true,false); //Posição C
+                    posicao[aux1][aux2] = new SetorNormal(true,true,true,true,false); //Posição C
                 }else if(aux1==x&&aux2==y){
-                    posicao[aux1][aux2] = new Setor(true); //Fonte de infecção
+                    posicao[aux1][aux2] = new SetorNormal(true); //Fonte de infecção
                 }else{
-                    posicao[aux1][aux2] = new Setor();
+                    int ab  = gerador.nextInt(10);
+                    int cd  = gerador.nextInt(10);
+                    int ef = gerador.nextInt(10);
+                    if(ab+cd+ef<10){
+                        posicao[aux1][aux2] = new SetorPrivado();
+                    }else if(ab+cd+ef<20&&ab+cd+ef>10){
+                        posicao[aux1][aux2] = new SetorNormal();
+                    }else if(ab+cd+ef<30&&ab+cd+ef>20){
+                        posicao[aux1][aux2] = new SetorOculto();
+                    }
+                    
                 }
             }
         }
@@ -71,5 +79,5 @@ public class Tabuleiro{
     public Setor[][] getPosicao(){
         return posicao;
     }
-
+    
 }

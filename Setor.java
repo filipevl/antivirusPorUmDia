@@ -1,6 +1,9 @@
 import java.util.Random;
 
-public class Setor{
+public abstract class Setor{
+    private boolean esquerda, cima, direita, baixo,fonteDeInfeccao;
+    private Inimigo[] vetor = new Inimigo[4];
+
     public Setor(boolean esquerda,boolean cima,boolean direita,boolean baixo, boolean fonteDeInfeccao){
         this.esquerda=esquerda;
         this.cima=cima;
@@ -15,79 +18,12 @@ public class Setor{
         this.fonteDeInfeccao=true;
     } // Construtor setor infeccao
 
-    private boolean esquerda, cima, direita, baixo,fonteDeInfeccao;
-    private Inimigo[] vetor = new Inimigo[4];
-
+    public Inimigo[] getInimigos(){
+        return this.vetor;
+    }
     public boolean getFonteDeInfeccao(){
         return this.fonteDeInfeccao;
     }
-
-    public Inimigo gerarInimigos(int x,int y){
-        Random gerador = new Random();
-        int atkDef = gerador.nextInt(4);
-        if(atkDef==0){
-            atkDef += 1;
-        }
-        return new Inimigo(atkDef,x,y);
-    }
-
-    public void init(int numeroDeInimigos,int x,int y,Setor[][] setor,int acao){
-        for(int i=0;i<numeroDeInimigos;i++){
-            vetor[i]=gerarInimigos(x,y);
-        }
-        if(x==0||y==0){
-            setor[x][y+1].setCima(false);
-            setor[x][y+1].setEsquerda(false);
-        }
-        setLados(x,y,setor,acao);
-        // Ação representa o movimento que está sendo feito
-    }
-
-    public void setLados(int x,int y,Setor[][] setor,int acao){
-        // Case 1: o jogador que movimentar para cima
-        // Case 2: o jogador que movimentar para baixo
-        // Case 3: o jogador que movimentar para direita
-        // Case 4: o jogador que movimentar para esquerda
-        switch (acao) {
-            case 1:
-                setor[x][y+1].setBaixo(true);
-
-                setor[x][y+1].setEsquerda(sortear());
-                setor[x][y+1].setDireita(sortear());
-                if(y+1<5){
-                    setor[x][y+1].setCima(sortear());
-                }else{
-                    setor[x][y+1].setCima(false);
-                }
-                break;
-            case 2:
-                setor[x][y-1].setCima(true);
-
-                setor[x][y-1].setEsquerda(sortear());
-                setor[x][y-1].setDireita(sortear());
-                if(y-1>0){
-                    setor[x][y-1].setBaixo(sortear());
-                }else{
-                    setor[x][y-1].setBaixo(false);
-                }
-                break;
-            case 3:
-                setor[x+1][y].setEsquerda(true);
-                setor[x+1][y].setDireita(sortear());
-                setor[x+1][y].setCima(sortear());
-                setor[x+1][y].setBaixo(sortear());
-                break;
-            case 4:
-                setor[x-1][y].setEsquerda(sortear());
-                setor[x-1][y].setDireita(true);
-                setor[x-1][y].setCima(sortear());
-                setor[x-1][y].setBaixo(sortear());
-                break;
-            default:
-                break;
-        }
-    }
-
     public boolean getEsquerda(){
         return this.esquerda;
     }
@@ -99,6 +35,71 @@ public class Setor{
     }
     public boolean getDireita(){
         return this.direita;
+    }
+    
+    public void setLados(int x,int y,Setor[][] setor,int acao){
+        // Case 1: o jogador que movimentar para cima
+        // Case 2: o jogador que movimentar para baixo
+        // Case 3: o jogador que movimentar para direita
+        // Case 4: o jogador que movimentar para esquerda
+        switch (acao) {
+            case 1:
+                try{
+                    setor[x][y+1].setBaixo(true);
+
+                    setor[x][y+1].setEsquerda(sortear());
+                    setor[x][y+1].setDireita(sortear());
+
+                    if(y+1<5){
+                        setor[x][y+1].setCima(sortear());
+                    }else{
+                        setor[x][y+1].setCima(false);
+                    }
+                }catch(ArrayIndexOutOfBoundsException e){
+                    System.out.println(e);
+                    System.out.println("erro");
+                }
+                
+                break;
+            case 2:
+                setor[x][y-1].setCima(true);
+
+                setor[x][y-1].setEsquerda(sortear());
+                setor[x][y-1].setDireita(sortear());
+
+                if(y-1>0){
+                    setor[x][y-1].setBaixo(sortear());
+                }else{
+                    setor[x][y-1].setBaixo(false);
+                }
+                break;
+            case 3:
+                setor[x+1][y].setEsquerda(true);
+
+                setor[x+1][y].setCima(sortear());
+                setor[x+1][y].setBaixo(sortear());
+
+                if(x+1<5){
+                    setor[x+1][y].setDireita(sortear());
+                }else{
+                    setor[x+1][y].setDireita(false);
+                }
+                break;
+            case 4:
+                setor[x-1][y].setDireita(true);
+
+                setor[x-1][y].setCima(sortear());
+                setor[x-1][y].setBaixo(sortear());
+                
+                if(x-1>0){
+                    setor[x-1][y].setEsquerda(sortear());
+                }else{
+                    setor[x-1][y].setEsquerda(false);
+                }
+                break;
+            default:
+                break;
+        }
     }
     public void setDireita(boolean d){
         this.direita=d;
@@ -112,7 +113,21 @@ public class Setor{
     public void setBaixo(boolean d){
         this.baixo=d;
     }
-
+    
+    public void init(int numeroDeInimigos,int x,int y,Setor[][] setor,int acao){
+        for(int i=0;i<numeroDeInimigos;i++){
+            vetor[i]=gerarInimigos(x,y);
+        }
+        setLados(x,y,setor,acao);
+    }
+    public Inimigo gerarInimigos(int x,int y){
+        Random gerador = new Random();
+        int atkDef = gerador.nextInt(4);
+        do{
+            atkDef = gerador.nextInt(4);
+        }while(atkDef==0);
+        return new Inimigo(atkDef,x,y);
+    }
     public boolean sortear(){
         Random gerador = new Random();
         int a = gerador.nextInt(100);
