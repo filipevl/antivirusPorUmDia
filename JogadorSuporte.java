@@ -32,12 +32,12 @@ public class JogadorSuporte extends Jogador{
     }
 
 
-    public void setAtk(JogadorSimples j, int atk){
-        if(existe(j)){
-            if(j.atk<this.atk){
-                this.atk = atk;
-            }
-        }
-    }
+//     public void setAtk(JogadorSimples j, int atk){
+//         if(existe(j)){
+//             if(j.atk<this.atk){
+//                 this.atk = atk;
+//             }
+//         }
+//     }
 
 }

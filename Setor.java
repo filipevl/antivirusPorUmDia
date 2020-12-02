@@ -2,21 +2,19 @@ import java.util.Random;
 
 public abstract class Setor{
     private boolean esquerda, cima, direita, baixo,fonteDeInfeccao;
-    private Inimigo[] vetor = new Inimigo[4];
+    private Inimigo[] vetor = new Inimigo[5];
 
-    public Setor(boolean esquerda,boolean cima,boolean direita,boolean baixo, boolean fonteDeInfeccao){
-        this.esquerda=esquerda;
-        this.cima=cima;
-        this.direita=direita;
-        this.baixo=baixo;
-        this.fonteDeInfeccao=fonteDeInfeccao;
-    } // Construtor do setor C
-    public Setor(){
+    public Setor(char c){
+        this.esquerda=true;
+        this.cima=true;
+        this.direita=true;
+        this.baixo=true;
         this.fonteDeInfeccao=false;
-    } // Construtor dos setores padrões
+    } // Construtor do setor C
     public Setor(boolean fonte){
         this.fonteDeInfeccao=true;
     } // Construtor setor infeccao
+    public Setor(){}
 
     public Inimigo[] getInimigos(){
         return this.vetor;
@@ -38,63 +36,54 @@ public abstract class Setor{
     }
     
     public void setLados(int x,int y,Setor[][] setor,int acao){
-        // Case 1: o jogador que movimentar para cima
-        // Case 2: o jogador que movimentar para baixo
-        // Case 3: o jogador que movimentar para direita
-        // Case 4: o jogador que movimentar para esquerda
         switch (acao) {
             case 1:
-                try{
-                    setor[x][y+1].setBaixo(true);
+                setor[x-1][y].setBaixo(true);
 
-                    setor[x][y+1].setEsquerda(sortear());
-                    setor[x][y+1].setDireita(sortear());
+                setor[x-1][y].setEsquerda(sortear());
+                setor[x-1][y].setDireita(sortear());
 
-                    if(y+1<5){
-                        setor[x][y+1].setCima(sortear());
-                    }else{
-                        setor[x][y+1].setCima(false);
-                    }
-                }catch(ArrayIndexOutOfBoundsException e){
-                    System.out.println(e);
-                    System.out.println("erro");
+                if(x-1>=0){
+                    setor[x-1][y].setCima(sortear());
+                }else{
+                    setor[0][y].setCima(false);
                 }
                 
                 break;
             case 2:
-                setor[x][y-1].setCima(true);
+                setor[x+1][y].setCima(true);
 
-                setor[x][y-1].setEsquerda(sortear());
-                setor[x][y-1].setDireita(sortear());
+                setor[x+1][y].setEsquerda(sortear());
+                setor[x+1][y].setDireita(sortear());
 
-                if(y-1>0){
-                    setor[x][y-1].setBaixo(sortear());
+                if(x<=4){
+                    setor[x+1][y].setBaixo(sortear());
                 }else{
-                    setor[x][y-1].setBaixo(false);
+                    setor[4][y].setBaixo(false);
                 }
                 break;
             case 3:
-                setor[x+1][y].setEsquerda(true);
+                setor[x][y+1].setEsquerda(true);
 
-                setor[x+1][y].setCima(sortear());
-                setor[x+1][y].setBaixo(sortear());
+                setor[x][y+1].setCima(sortear());
+                setor[x][y+1].setBaixo(sortear());
 
-                if(x+1<5){
-                    setor[x+1][y].setDireita(sortear());
+                if(y<=4){
+                    setor[x][y+1].setDireita(sortear());
                 }else{
-                    setor[x+1][y].setDireita(false);
+                    setor[x][4].setDireita(false);
                 }
                 break;
             case 4:
-                setor[x-1][y].setDireita(true);
+                setor[x][y-1].setDireita(true);
 
-                setor[x-1][y].setCima(sortear());
-                setor[x-1][y].setBaixo(sortear());
+                setor[x][y-1].setCima(sortear());
+                setor[x][y-1].setBaixo(sortear());
                 
-                if(x-1>0){
-                    setor[x-1][y].setEsquerda(sortear());
+                if(y-1>=0){
+                    setor[x][y-1].setEsquerda(sortear());
                 }else{
-                    setor[x-1][y].setEsquerda(false);
+                    setor[x][0].setEsquerda(false);
                 }
                 break;
             default:
@@ -113,19 +102,23 @@ public abstract class Setor{
     public void setBaixo(boolean d){
         this.baixo=d;
     }
+    public void setVetor(Inimigo[] vetor){
+        this.vetor=vetor;
+    }
     
     public void init(int numeroDeInimigos,int x,int y,Setor[][] setor,int acao){
-        for(int i=0;i<numeroDeInimigos;i++){
-            vetor[i]=gerarInimigos(x,y);
+        Inimigo []inimigos = new Inimigo[numeroDeInimigos];
+        for(int i=0;i<inimigos.length;i++){
+            inimigos[i]=gerarInimigos(x,y);
         }
-        setLados(x,y,setor,acao);
+        setLados(x,y,setor,acao);    
+        setVetor(inimigos);
+        System.out.printf("Setor:%d,%d\nInimigos%d\n",x,y,inimigos.length);       
     }
+    
+    
     public Inimigo gerarInimigos(int x,int y){
-        Random gerador = new Random();
-        int atkDef = gerador.nextInt(4);
-        do{
-            atkDef = gerador.nextInt(4);
-        }while(atkDef==0);
+        int atkDef = getIntervalo(1, 3);
         return new Inimigo(atkDef,x,y);
     }
     public boolean sortear(){
@@ -137,5 +130,13 @@ public abstract class Setor{
         }else{
             return false;
         }
+    }
+    public int getIntervalo(int x,int y){
+        Random gerador = new Random();
+        int num = gerador.nextInt(y+1);
+        do{
+            num = gerador.nextInt(y+1);
+        }while(num<x);
+        return num;
     }
 }
