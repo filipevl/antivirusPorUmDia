@@ -20,8 +20,8 @@ public class Tabuleiro{
                 y = getIntervalo(1,5);
         }while(x==2 || y==2);
 
-        for(int aux1=0; aux1<=4; aux1++){
-            for(int aux2=0 ;aux2<=4 ; aux2++){
+        for(int aux1=0; aux1<5; aux1++){
+            for(int aux2=0 ;aux2<5 ; aux2++){
                 if(aux1==2 && aux2==2){
                     setor[aux1][aux2] = new SetorNormal('c'); //Posição C
                 }
@@ -47,29 +47,29 @@ public class Tabuleiro{
         }
     }
 
-    public boolean portaEsquerdaAberta(Setor[][] setor,int posicaoX,int posicaoY){
-        if(setor[posicaoX][posicaoY].getEsquerda()){
+    public boolean portaEsquerdaAberta(int posicaoX,int posicaoY){
+        if(getSetores()[posicaoX][posicaoY].getEsquerda()){
             return true;
         }else{
             return false;
         }
     }
-    public boolean portaDireitaAberta(Setor[][] setor,int posicaoX,int posicaoY){
-        if(setor[posicaoX][posicaoY].getDireita()){
+    public boolean portaDireitaAberta(int posicaoX,int posicaoY){
+        if(getSetores()[posicaoX][posicaoY].getDireita()){
             return true;
         }else{
             return false;
         }
     }
-    public boolean portaBaixoAberta(Setor[][] setor,int posicaoX,int posicaoY){
-        if(setor[posicaoX][posicaoY].getBaixo()){
+    public boolean portaBaixoAberta(int posicaoX,int posicaoY){
+        if(getSetores()[posicaoX][posicaoY].getBaixo()){
             return true;
         }else{
             return false;
         }
     }
-    public boolean portaCimaAberta(Setor[][] setor,int posicaoX,int posicaoY){
-        if(setor[posicaoX][posicaoY].getCima()){
+    public boolean portaCimaAberta(int posicaoX,int posicaoY){
+        if(getSetores()[posicaoX][posicaoY].getCima()){
             return true;
         }else{
             return false;

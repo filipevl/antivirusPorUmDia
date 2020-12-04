@@ -18,17 +18,13 @@ public abstract class Jogador {
     public abstract void setDef(int def);
     // public abstract void setAtk(JogadorSimples j, int atk);
 
-    public void movimentar(Tabuleiro tab, JogadorSimples j, int movimento) {
+    public void movimentar(Tabuleiro tab, Jogador j, int movimento) {
         switch (movimento) {
             case 1: // Ir para cima
-                if (tab.portaCimaAberta(tab.getSetores(), this.x, this.y)) {
-                    if(this.x - 1 >= 0){
-                        try{
+                if (tab.getSetores()[j.x][j.y].getCima()) {
+                    if(this.x - 1 > -1){
                         setX(this.x - 1);
-                        }
-                        finally{
                         tab.initSetor(this.x, this.y,1);
-                        }
                     }else{
                         System.out.printf("\n\nPorta fechada, movimento recusado\n\n");
                         return;
@@ -38,8 +34,8 @@ public abstract class Jogador {
                 }
                 break;
             case 2: // Ir para baixo
-                if (tab.portaBaixoAberta(tab.getSetores(), this.x, this.y)) {
-                    if(this.x + 1<=4){
+                if (tab.getSetores()[j.x][j.y].getBaixo()) {
+                    if(this.x + 1<5){
                         setX(this.x + 1);
                         tab.initSetor(this.x, this.y,2);  
                     }else{
@@ -51,30 +47,23 @@ public abstract class Jogador {
                 }
                 break;
             case 3: //Ir para direita
-                if (tab.portaDireitaAberta(tab.getSetores(), this.x, this.y)) {
-                    if(this.y + 1<=4){
-                        try{
-                            setY(this.y + 1);
-                        }
-                        finally{
-                            tab.initSetor(this.x, this.y,3);
-                        }
+                if (tab.getSetores()[j.x][j.y].getDireita()) {
+                    if(this.y + 1<5){
+                        setY(this.y + 1);
+                        tab.initSetor(this.x, this.y,3);
                     }else{
-                        System.out.printf("Porta fechada");
+                        System.out.printf("\n\nPorta fechada, movimento recusado\n\n");
+                        return;
                     }
                 }else{
-                    System.out.printf("Porta da direita fechada -> Setor[%d,%d]",this.x,this.y);
+                    System.out.printf("\n\nPorta fechada, movimento recusado\n\n");
                 }
                 break;
             case 4: //Ir para esquerda
-                if (tab.portaEsquerdaAberta(tab.getSetores(), this.x, this.y)) {
-                    if(this.y-1>=0){
-                        try{
+                if (tab.getSetores()[j.x][j.y].getEsquerda()) {
+                    if(this.y-1>-1){
                             setY(this.y - 1);
-                        }
-                        finally{
                             tab.initSetor(this.x, this.y,4);
-                        }
                     }else{
                         System.out.printf("\n\nPorta fechada, movimento recusado\n\n");
                         return;

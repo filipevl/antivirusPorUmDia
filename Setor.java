@@ -1,8 +1,9 @@
 import java.util.Random;
-
+ 
 public abstract class Setor{
-    private boolean esquerda, cima, direita, baixo,fonteDeInfeccao;
+    private boolean esquerda, cima, direita, baixo,fonteDeInfeccao,init;
     private Inimigo[] vetor = new Inimigo[5];
+    
 
     public Setor(char c){
         this.esquerda=true;
@@ -10,11 +11,15 @@ public abstract class Setor{
         this.direita=true;
         this.baixo=true;
         this.fonteDeInfeccao=false;
+        this.init = true;
     } // Construtor do setor C
     public Setor(boolean fonte){
         this.fonteDeInfeccao=true;
     } // Construtor setor infeccao
-    public Setor(){}
+    public Setor(){
+        this.fonteDeInfeccao=false;
+        this.init = false;
+    }
 
     public Inimigo[] getInimigos(){
         return this.vetor;
@@ -34,71 +39,12 @@ public abstract class Setor{
     public boolean getDireita(){
         return this.direita;
     }
-    
-    public void setLados(int x,int y,Setor[][] setor,int acao){
-        switch (acao) {
-            case 1:
-                setor[x-1][y].setBaixo(true);
+    public boolean getInit(){
+        return this.init;
+    }
 
-                if(setor[x][y-1].getInicializado()){ //Vizinho de esqueda ja foi inicializado ?
-                    if(setor[x][y-1].getDireita()){ //Porta direita do vizinho da esquerda
-                        setor[x][y].setEsquerda(true);
-                    }
-                    else{
-                        setor[x][y].setEsquerda(sortear());
-                    }
-                }
-                else{
-                    setor[x][y].setEsquerda(sortear());
-                }
-                
-                if(setor[x][y+1].getInicializado()){ //Vizinho da direita ja foi inicializado ?
-                    if(setor[x+1][y].getEsquerda()){ //Porta esquerda do vizinho da direita
-                        setor[x][y].setDireita(true);
-                    }else{
-                    setor[0][y].setCima(false);
-                }
-                
-                break;
-            case 2:
-                setor[x+1][y].setCima(true);
-
-                setor[x+1][y].setEsquerda(sortear());
-                setor[x+1][y].setDireita(sortear());
-
-                if(x<=4){
-                    setor[x+1][y].setBaixo(sortear());
-                }else{
-                    setor[4][y].setBaixo(false);
-                }
-                break;
-            case 3:
-                setor[x][y+1].setEsquerda(true);
-
-                setor[x][y+1].setCima(sortear());
-                setor[x][y+1].setBaixo(sortear());
-
-                if(y<=4){
-                    setor[x][y+1].setDireita(sortear());
-                }else{
-                    setor[x][4].setDireita(false);
-                }
-                break;
-            case 4:
-                setor[x][y-1].setDireita(true);
-
-                setor[x][y-1].setCima(sortear());
-                setor[x][y-1].setBaixo(sortear());
-                
-                if(y-1>=0){
-                    setor[x][y-1].setEsquerda(sortear());
-                }else{
-                    setor[x][0].setEsquerda(false);
-                }
-                break;
-            default:
-                break;
-        }
+    public void setInit(){
+        this.init = true;
     }
     public void setDireita(boolean d){
         this.direita=d;
@@ -115,32 +61,171 @@ public abstract class Setor{
     public void setVetor(Inimigo[] vetor){
         this.vetor=vetor;
     }
-    
+
     public void init(int numeroDeInimigos,int x,int y,Setor[][] setor,int acao){
-        Inimigo []inimigos = new Inimigo[numeroDeInimigos];
-        for(int i=0;i<inimigos.length;i++){
-            inimigos[i]=gerarInimigos(x,y);
-        }
-        setLados(x,y,setor,acao);    
-        setVetor(inimigos);
-        System.out.printf("Setor:%d,%d\nInimigos%d\n",x,y,inimigos.length);       
-    }
-    
-    
-    public Inimigo gerarInimigos(int x,int y){
-        int atkDef = getIntervalo(1, 3);
-        return new Inimigo(atkDef,x,y);
-    }
-    public boolean sortear(){
-        Random gerador = new Random();
-        int a = gerador.nextInt(100);
-        int b = gerador.nextInt(100);
-        if((a+b)%2==0){
-            return true;
+        if(!setor[x][y].init){
+            Inimigo []inimigos = new Inimigo[numeroDeInimigos];
+            for(int i=0;i<inimigos.length;i++){
+                inimigos[i]=gerarInimigos(x,y);
+            }
+            setVetor(inimigos);
+            setLados(x,y,setor,acao); 
+            setInit();
         }else{
-            return false;
+            return;
+        }
+            
+    }
+    
+    public void setLados(int x,int y,Setor[][] setor,int acao){
+        Setor vizinhoEsquerda = setor[x][y-1];
+        Setor vizinhoDireita = setor[x][y+1];
+        Setor vizinhoCima = setor[x-1][y];
+        Setor vizinhoBaixo = setor[x+1][y];
+        switch (acao) {
+            case 1: //Ir para cima
+                setor[x][y].setBaixo(true);
+
+                if(vizinhoEsquerda.getInit()){ //Vizinho de esquerda ja foi inicializado ?
+                    if(vizinhoEsquerda.getDireita()){ //Porta direita do vizinho da esquerda
+                        setor[x][y].setEsquerda(true);
+                    }else{
+                        setor[x][y].setEsquerda(sortear());
+                    }
+                }else{
+                    setor[x][y].setEsquerda(sortear());
+                }
+                
+                if(vizinhoDireita.getInit()){ //Vizinho da direita ja foi inicializado ?
+                    if(vizinhoDireita.getEsquerda()){ //Porta esquerda do vizinho da direita
+                        setor[x][y].setDireita(true);
+                    }else{
+                        setor[x][y].setDireita(sortear());
+                    }
+                }else{
+                    setor[x][y].setDireita(sortear());
+                }
+                    
+                if(vizinhoCima.getInit()){ //Vizinho de cima ja foi inicializado ?
+                    if(vizinhoCima.getBaixo()){
+                        setor[x][y].setCima(true);
+                    }else{
+                        setor[x][y].setCima(sortear());
+                    }
+                }else{
+                    setor[x][y].setCima(sortear());
+                }
+                break;
+            case 2: //Ir para baixo
+                setor[x][y].setCima(true);
+
+                if(vizinhoEsquerda.getInit()){ //Vizinho de esquerda ja foi inicializado ?
+                    if(vizinhoEsquerda.getDireita()){ //Porta direita do vizinho da esquerda
+                        setor[x][y].setEsquerda(true);
+                    }
+                    else{
+                        setor[x][y].setEsquerda(sortear());
+                    }
+                }else{
+                    setor[x][y].setEsquerda(sortear());
+                }
+                
+                if(vizinhoDireita.getInit()){ //Vizinho da direita ja foi inicializado ?
+                    if(vizinhoDireita.getEsquerda()){ //Porta esquerda do vizinho da direita
+                        setor[x][y].setDireita(true);
+                    }else{
+                        setor[x][y].setDireita(sortear());
+                    }
+                }
+                else{
+                    setor[x][y].setDireita(sortear());
+                }
+                    
+                  
+                if(vizinhoBaixo.getInit()){ //Vizinho de baixo ja foi inicializado ?
+                    if(vizinhoBaixo.getCima()){
+                        setor[x][y].setBaixo(true);
+                    }else{
+                        setor[x][y].setBaixo(sortear());
+                    }
+                }else{
+                    setor[x][y].setBaixo(sortear());
+                }
+                break;
+            case 3: // Ir para direita
+                setor[x][y].setEsquerda(true);
+
+                if(vizinhoDireita.getInit()){ //Vizinho da direita ja foi inicializado ?
+                    if(vizinhoDireita.getEsquerda()){ //Porta esquerda do vizinho da direita
+                        setor[x][y].setDireita(true);
+                    }else{
+                        setor[x][y].setDireita(sortear());
+                    }
+                }else{
+                    setor[x][y].setDireita(sortear());
+                }
+                    
+                if(vizinhoCima.getInit()){ //Vizinho de cima ja foi inicializado ?
+                    if(vizinhoCima.getBaixo()){
+                        setor[x][y].setCima(true);
+                    }else{
+                        setor[x][y].setCima(sortear());
+                    }
+                }else{
+                    setor[x][y].setCima(sortear());
+                }
+
+                if(vizinhoBaixo.getInit()){ //Vizinho de baixo ja foi inicializado ?
+                    if(vizinhoBaixo.getCima()){
+                        setor[x][y].setBaixo(true);
+                    }else{
+                        setor[x][y].setBaixo(sortear());
+                    }
+                }else{
+                    setor[x][y].setBaixo(sortear());
+                }
+
+                break;
+            case 4: // Ir para esquerda
+                setor[x][y].setDireita(true);
+
+                if(vizinhoCima.getInit()){ //Vizinho de cima ja foi inicializado ?
+                    if(vizinhoCima.getBaixo()){
+                        setor[x][y].setCima(true);
+                    }else{
+                        setor[x][y].setCima(sortear());
+                    }
+                }else{
+                    setor[x][y].setCima(sortear());
+                }
+
+                if(vizinhoBaixo.getInit()){ //Vizinho de baixo ja foi inicializado ?
+                    if(vizinhoBaixo.getCima()){
+                        setor[x][y].setBaixo(true);
+                    }else{
+                        setor[x][y].setBaixo(sortear());
+                    }
+                }else{
+                    setor[x][y].setBaixo(sortear());
+                }
+
+                if(vizinhoEsquerda.getInit()){ //Vizinho de esquerda ja foi inicializado ?
+                    if(vizinhoEsquerda.getDireita()){ //Porta direita do vizinho da esquerda
+                        setor[x][y].setEsquerda(true);
+                    }
+                    else{
+                        setor[x][y].setEsquerda(sortear());
+                    }
+                }else{
+                    setor[x][y].setEsquerda(sortear());
+                }
+
+                break;
+            default:
+                break;
         }
     }
+
     public int getIntervalo(int x,int y){
         Random gerador = new Random();
         int num = gerador.nextInt(y+1);
@@ -148,5 +233,17 @@ public abstract class Setor{
             num = gerador.nextInt(y+1);
         }while(num<x);
         return num;
+    }
+    public Inimigo gerarInimigos(int x,int y){
+        int atkDef = getIntervalo(1, 3);
+        return new Inimigo(atkDef,x,y);
+    }
+    public boolean sortear(){
+        int a = getIntervalo(1, 10);
+        if(a>=3){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

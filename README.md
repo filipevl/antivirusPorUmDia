@@ -21,3 +21,11 @@ O jogo é formado por dois tipos de jogadores: simples e de suporte.
 5. O jogador simples pode executar as seguintes ações no jogo: movimentar, atacar e procurar.
 6. O jogador de suporte pode executar as seguintes ações no jogo: movimentar, atacar, procurar e recuperar defesa.
 7. As ações dos itens 6 e 7 serão detalhadas na seção Turno.
+
+### Inimigos
+
+Os inimigos são os vírus de computador gerados por uma fonte de infecção. O objetivo do jogo é que um dos jogadores, apresentados na Seção 2.1, encontre essa fonte de infecção.
+1. Cada inimigo possui um valor para ataque (ATK) e um valor de defesa (DEF), sendo que o poder de ataque e defesa devem ser inicialmente iguais, com valores entre 1 e 3. Por exemplo, um inimigo pode ter ATK=1 e DEF=1, e outro pode ter ATK=2 e DEF=2.
+2. Os valores de ATK e DEF devem ser definidos aleatoriamente, no momento em que os inimigos forem criados.
+3. Os inimigos só podem executar a ação de atacar, que será detalhada na seção Turno.
+4. Os inimigos não se movimentam, não efetuam procuras ou recuperam defesa (somente os jogadores possuem essas ações).
