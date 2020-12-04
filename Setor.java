@@ -40,12 +40,22 @@ public abstract class Setor{
             case 1:
                 setor[x-1][y].setBaixo(true);
 
-                setor[x-1][y].setEsquerda(sortear());
-                setor[x-1][y].setDireita(sortear());
-
-                if(x-1>=0){
-                    setor[x-1][y].setCima(sortear());
-                }else{
+                if(setor[x][y-1].getInicializado()){ //Vizinho de esqueda ja foi inicializado ?
+                    if(setor[x][y-1].getDireita()){ //Porta direita do vizinho da esquerda
+                        setor[x][y].setEsquerda(true);
+                    }
+                    else{
+                        setor[x][y].setEsquerda(sortear());
+                    }
+                }
+                else{
+                    setor[x][y].setEsquerda(sortear());
+                }
+                
+                if(setor[x][y+1].getInicializado()){ //Vizinho da direita ja foi inicializado ?
+                    if(setor[x+1][y].getEsquerda()){ //Porta esquerda do vizinho da direita
+                        setor[x][y].setDireita(true);
+                    }else{
                     setor[0][y].setCima(false);
                 }
                 
