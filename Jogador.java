@@ -3,7 +3,7 @@ import java.util.Scanner;
 public abstract class Jogador {
     protected int atk, def, x, y;
     Scanner ler = new Scanner(System.in);
-    
+
     public Jogador(int atk, int def) {
         this.atk = atk;
         this.def = def;
@@ -20,11 +20,10 @@ public abstract class Jogador {
     public abstract void setDef(int def);
     // public abstract void setAtk(JogadorSimples j, int atk);
     
-    public void movimentar(Tabuleiro tab, Jogador j, int movimento) {
+    public void movimentar(Tabuleiro tab, int movimento) {
         switch (movimento) {
             case 1: // Ir para cima
-                System.out.println(tab.getSetores()[j.x][j.y].getCima());
-                if (tab.getSetores()[j.x][j.y].getCima()) {
+                if (tab.portaCimaAberta(this.x, this.y)) {
                     if(this.x - 1 > -1){
                         setX(this.x - 1);
                         tab.initSetor(this.x, this.y,1);
@@ -37,7 +36,7 @@ public abstract class Jogador {
                 }
                 break;
             case 2: // Ir para baixo
-                if (tab.getSetores()[j.x][j.y].getBaixo()) {
+                if (tab.portaBaixoAberta(this.x, this.y)) {
                     if(this.x + 1<5){
                         setX(this.x + 1);
                         tab.initSetor(this.x, this.y,2);  
@@ -50,7 +49,7 @@ public abstract class Jogador {
                 }
                 break;
             case 3: //Ir para direita
-                if (tab.getSetores()[j.x][j.y].getDireita()) {
+                if (tab.portaDireitaAberta(this.x, this.y)) {
                     if(this.y + 1<5){
                         setY(this.y + 1);
                         tab.initSetor(this.x, this.y,3);
@@ -63,7 +62,7 @@ public abstract class Jogador {
                 }
                 break;
             case 4: //Ir para esquerda
-                if (tab.getSetores()[j.x][j.y].getEsquerda()) {
+                if (tab.portaEsquerdaAberta(this.x, this.y)) {
                     if(this.y-1>-1){
                             setY(this.y - 1);
                             tab.initSetor(this.x, this.y,4);
@@ -79,7 +78,7 @@ public abstract class Jogador {
                 break;
         }
     }
-    public void atacar(Setor s,Jogador j) {
+    public void atacar(Setor s) {
         if(s instanceof SetorNormal){
             Inimigo inimigos[] = new Inimigo[5];
             int vet[] = new int[5];
@@ -91,7 +90,7 @@ public abstract class Jogador {
                     vet[i]=0;
                 }
             }
-            System.out.printf("\n\n\t -Mapa de inimigos do setor[%d,%d]",j.x,j.y);
+            System.out.printf("\n\n\t -Mapa de inimigos do setor[%d,%d]",this.x,this.y);
             for(int i=0;i<vet.length;i++){
                 System.out.printf("\nPosicao %d: %d\n",i,vet[i]);
             }

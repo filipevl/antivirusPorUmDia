@@ -7,7 +7,7 @@ public class Turno {
         JogadorSimples p1 = new JogadorSimples();
         JogadorSuporte p2 = new JogadorSuporte();
         
-        tab.init(tab.getSetores());
+        tab.init();
 
         for(int i=0;i<25;i++){
             System.out.printf("\nCiclo:%d\t",i+1);
@@ -51,16 +51,16 @@ public class Turno {
                                 movimento = s.nextInt();
                                 switch(movimento){
                                     case 1:
-                                        p1.movimentar(tab, p1, 1);
+                                        p1.movimentar(tab, 1);
                                         break;
                                     case 2:
-                                        p1.movimentar(tab, p1, 2);
+                                        p1.movimentar(tab, 2);
                                         break;
                                     case 3:
-                                        p1.movimentar(tab, p1, 3);
+                                        p1.movimentar(tab, 3);
                                         break;
                                     case 4:
-                                        p1.movimentar(tab, p1, 4);
+                                        p1.movimentar(tab, 4);
                                         break;
                                     case 5:
                                         y--;
@@ -72,7 +72,7 @@ public class Turno {
                             }while(movimento > 5 || movimento < 0);
                             break;
                         case 2:
-                            p1.atacar(tab.getSetores()[p1.x][p1.y], p1);
+                            p1.atacar(tab.getSetores()[p1.x][p1.y]);
                             break;
                         case 3:
                             p1.procurar(tab.getSetores()[p1.x][p1.y]);
@@ -130,16 +130,16 @@ public class Turno {
                                 movimento = s.nextInt();
                                 switch(movimento){
                                     case 1:
-                                        p2.movimentar(tab, p2, 1);
+                                        p2.movimentar(tab, 1);
                                         break;
                                     case 2:
-                                        p2.movimentar(tab, p2, 2);
+                                        p2.movimentar(tab, 2);
                                         break;
                                     case 3:
-                                        p2.movimentar(tab, p2, 3);
+                                        p2.movimentar(tab, 3);
                                         break;
                                     case 4:
-                                        p2.movimentar(tab, p2, 4);
+                                        p2.movimentar(tab, 4);
                                         break;
                                     case 5:
                                         y--;
@@ -151,7 +151,7 @@ public class Turno {
                             }while(movimento > 5 || movimento < 0);
                             break;
                         case 2:
-                            p2.atacar(tab.getSetores()[p2.x][p2.y], p2);
+                            p2.atacar(tab.getSetores()[p2.x][p2.y]);
                             break;
                         case 3:
                             p2.procurar(tab.getSetores()[p2.x][p2.y]);
