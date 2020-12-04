@@ -2,15 +2,17 @@ import java.util.Scanner;
 public class Turno {
     public static void main(String args[]){
         Scanner s = new Scanner(System.in);
+
         Tabuleiro tab = new Tabuleiro();
-        tab.init(tab.getSetores());
         JogadorSimples p1 = new JogadorSimples();
         JogadorSuporte p2 = new JogadorSuporte();
-        imprimir(tab);
+        
+        tab.init(tab.getSetores());
+
         for(int i=0;i<25;i++){
-            System.out.printf("\nCiclo:%d\n",i+1);
-            System.out.printf("Posicao Jogador 1:[%d,%d]\t",p1.x,p1.y);
-            System.out.printf("Posicao Jogador 2:[%d,%d]\n",p2.x,p2.y);
+            System.out.printf("\nCiclo:%d\t",i+1);
+            System.out.printf("Jogador 1:[%d,%d] - Atk:%d | Def:%d\n",p1.x,p1.y,p1.atk,p1.def);
+            System.out.printf("\tJogador 2:[%d,%d] - Atk:%d | Def:%d\n",p2.x,p2.y,p2.atk,p2.def);
             boolean j1=false; //ref se o jogador 1 fez ou não suas duas jogadas
             boolean j2=false; //ref se o jogador 2 fez ou não suas duas jogadas
             do{
@@ -103,22 +105,22 @@ public class Turno {
                         case 1:
                             int movimento;
                             do{
-                                if(tab.getSetores()[p1.x][p1.y].getCima()){
+                                if(tab.getSetores()[p2.x][p2.y].getCima()){
                                     System.out.printf("\n1 - Cima");
                                 }else{
                                     System.out.printf("\n1 - Porta de cima fechada");
                                 }
-                                if(tab.getSetores()[p1.x][p1.y].getBaixo()){
+                                if(tab.getSetores()[p2.x][p2.y].getBaixo()){
                                     System.out.printf("\n2 - Baixo");
                                 }else{
                                     System.out.printf("\n2 - Porta de baixo fechada");
                                 }
-                                if(tab.getSetores()[p1.x][p1.y].getDireita()){
+                                if(tab.getSetores()[p2.x][p2.y].getDireita()){
                                     System.out.printf("\n3 - Direita");
                                 }else{
                                     System.out.printf("\n3 - Porta da Direita fechada");
                                 }
-                                if(tab.getSetores()[p1.x][p1.y].getEsquerda()){
+                                if(tab.getSetores()[p2.x][p2.y].getEsquerda()){
                                     System.out.printf("\n4 - Esquerda");
                                 }else{
                                     System.out.printf("\n4 - Porta da Esquerda fechada");

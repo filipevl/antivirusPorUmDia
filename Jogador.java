@@ -2,6 +2,8 @@ import java.util.Random;
 import java.util.Scanner;
 public abstract class Jogador {
     protected int atk, def, x, y;
+    Scanner ler = new Scanner(System.in);
+    
     public Jogador(int atk, int def) {
         this.atk = atk;
         this.def = def;
@@ -17,7 +19,7 @@ public abstract class Jogador {
     }
     public abstract void setDef(int def);
     // public abstract void setAtk(JogadorSimples j, int atk);
-
+    
     public void movimentar(Tabuleiro tab, Jogador j, int movimento) {
         switch (movimento) {
             case 1: // Ir para cima
@@ -79,7 +81,6 @@ public abstract class Jogador {
     }
     public void atacar(Setor s,Jogador j) {
         if(s instanceof SetorNormal){
-            Scanner ler = new Scanner(System.in);
             Inimigo inimigos[] = new Inimigo[5];
             int vet[] = new int[5];
             for(int i=0;i<s.getInimigos().length;i++){
@@ -114,7 +115,6 @@ public abstract class Jogador {
                     vet[i]=1;
                 }
             }
-            Scanner ler = new Scanner(System.in);
             System.out.printf("\nDigite uma posicao de inimigos para atacar");
             int posicao = ler.nextInt();
             int num = getIntervalo(0, 10);

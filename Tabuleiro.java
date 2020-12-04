@@ -6,7 +6,7 @@ public class Tabuleiro{
         return this.setores;
     }
 
-    public void init(Setor[][] setor){
+    public void init(Setor[][] setor){ 
         System.out.printf("\n\n\t -Inicializando matriz de setores");
         int x = getIntervalo(0,5); //Posição x da fonte de infecção
         int y = getIntervalo(0,5); //Posição y da fonte de infecção
