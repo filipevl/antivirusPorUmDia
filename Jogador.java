@@ -167,9 +167,9 @@ public abstract class Jogador {
     }
     public int getIntervalo(int x,int y){
         Random gerador = new Random();
-        int num = gerador.nextInt(y+1);
+        int num = gerador.nextInt(y);
         do{
-            num = gerador.nextInt(y+1);
+            num = gerador.nextInt(y);
         }while(num<x);
         return num;
     }

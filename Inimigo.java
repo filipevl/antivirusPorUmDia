@@ -32,11 +32,6 @@ public class Inimigo{
         }
     }
 
-    public void gerarValores(){
-        Random gerador = new Random();
-        atk=gerador.nextInt(4);
-        def=gerador.nextInt(4);
-    }
     public void atacar(Jogador j1,Jogador j2){
         Random gerador = new Random();
         int num = gerador.nextInt(7);

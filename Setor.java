@@ -47,8 +47,7 @@ public abstract class Setor{
     public void setBaixo(boolean d){
         this.baixo=d;
     }
-    public void setVetor(Inimigo[] vetor){
+    public void setInimigo(Inimigo[] vetor){
         this.vetor=vetor;
-        System.out.printf("\n\t-Inimigos criados");
     }
 }

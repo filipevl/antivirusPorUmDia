@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 public class Turno {
     public static void main(String args[]){
         Scanner s = new Scanner(System.in);
@@ -17,77 +17,82 @@ public class Turno {
             boolean j2=false; //ref se o jogador 2 fez ou não suas duas jogadas
             do{
                 for(int y=0;y<2;y++){
-                    int acao;
+                    int acao = 0;
                     System.out.printf("\n\n\t\tJogador 1:[%d,%d]\tCiclo:%d",p1.x,p1.y,i+1);
                     System.out.printf("\n1-Movimentar\n2-Atacar\n3-Procurar\n4-Sair do jogo\n");
                     System.out.printf("\n\n\nJogador 1, Digite sua %d opcao: ",y+1);
-                    acao = s.nextInt();
-                    switch(acao){
-                        case 1:
-                            int movimento;
-                            do{
-                                if(tab.getSetores()[p1.x][p1.y].getCima()){
-                                    System.out.printf("\n1 - Cima");
-                                }else{
-                                    System.out.printf("\n1 - Porta de cima fechada");
-                                }
-                                if(tab.getSetores()[p1.x][p1.y].getBaixo()){
-                                    System.out.printf("\n2 - Baixo");
-                                }else{
-                                    System.out.printf("\n2 - Porta de baixo fechada");
-                                }
-                                if(tab.getSetores()[p1.x][p1.y].getDireita()){
-                                    System.out.printf("\n3 - Direita");
-                                }else{
-                                    System.out.printf("\n3 - Porta da Direita fechada");
-                                }
-                                if(tab.getSetores()[p1.x][p1.y].getEsquerda()){
-                                    System.out.printf("\n4 - Esquerda");
-                                }else{
-                                    System.out.printf("\n4 - Porta da Esquerda fechada");
-                                }
-                                System.out.printf("\n5 - Cancelar operacao");
-                                System.out.printf("\nJogador 1, Escolha um movimento: ");
-                                movimento = s.nextInt();
-                                switch(movimento){
-                                    case 1:
-                                        p1.movimentar(tab, 1);
-                                        break;
-                                    case 2:
-                                        p1.movimentar(tab, 2);
-                                        break;
-                                    case 3:
-                                        p1.movimentar(tab, 3);
-                                        break;
-                                    case 4:
-                                        p1.movimentar(tab, 4);
-                                        break;
-                                    case 5:
-                                        y--;
-                                        break;
-                                    default:
-                                        System.out.printf("Opcao invalida");
-                                        break;
-                                }
-                            }while(movimento > 5 || movimento < 0);
-                            break;
-                        case 2:
-                            p1.atacar(tab.getSetores()[p1.x][p1.y]);
-                            break;
-                        case 3:
-                            p1.procurar(tab.getSetores()[p1.x][p1.y]);
-                            break;
-                        case 4:
-                            i=25;
-                            acao=4;
-                            y=1;
-                            System.out.printf("\n\n\tVoce perdeu\n\n");
-                            break;
-                        default:
-                            System.out.printf("\n\n\tOpcao invalida\n\n");
-                            break;
+                    try{
+                        acao = s.nextInt();
                     }
-                
+                    catch(InputMismatchException e){
+                        System.err.println("Entre com um valor do tipo inteiro");
+                    }
+                    switch(acao){
+                            case 1:
+                                int movimento;
+                                do{
+                                    if(tab.portaCimaAberta(p1.x, p1.y)){
+                                        System.out.printf("\n1 - Cima");
+                                    }else{
+                                        System.out.printf("\n1 - Porta de cima fechada");
+                                    }
+                                    if(tab.portaBaixoAberta(p1.x, p1.y)){
+                                        System.out.printf("\n2 - Baixo");
+                                    }else{
+                                        System.out.printf("\n2 - Porta de baixo fechada");
+                                    }
+                                    if(tab.portaDireitaAberta(p1.x, p1.y)){
+                                        System.out.printf("\n3 - Direita");
+                                    }else{
+                                        System.out.printf("\n3 - Porta da Direita fechada");
+                                    }
+                                    if(tab.portaEsquerdaAberta(p1.x, p1.y)){
+                                        System.out.printf("\n4 - Esquerda");
+                                    }else{
+                                        System.out.printf("\n4 - Porta da Esquerda fechada");
+                                    }
+                                    System.out.printf("\n5 - Cancelar operacao");
+                                    System.out.printf("\nJogador 1, Escolha um movimento: ");
+                                    movimento = s.nextInt();
+                                    switch(movimento){
+                                        case 1:
+                                            p1.movimentar(tab, 1);
+                                            break;
+                                        case 2:
+                                            p1.movimentar(tab, 2);
+                                            break;
+                                        case 3:
+                                            p1.movimentar(tab, 3);
+                                            break;
+                                        case 4:
+                                            p1.movimentar(tab, 4);
+                                            break;
+                                        case 5:
+                                            y--;
+                                            break;
+                                        default:
+                                            System.out.printf("Opcao invalida");
+                                            break;
+                                    }
+                                }while(movimento > 5 || movimento < 0);
+                                break;
+                            case 2:
+                                p1.atacar(tab.getSetores()[p1.x][p1.y]);
+                                break;
+                            case 3:
+                                p1.procurar(tab.getSetores()[p1.x][p1.y]);
+                                break;
+                            case 4:
+                                i=25;
+                                acao=4;
+                                y=1;
+                                System.out.printf("\n\n\tVoce perdeu\n\n");
+                                break;
+                            default:
+                                System.out.printf("\n\n\tOpcao invalida\n\n");
+                                break;
+                        }
+                    
                     if(y==1)
                         j1=true;
                     else
@@ -105,22 +110,22 @@ public class Turno {
                         case 1:
                             int movimento;
                             do{
-                                if(tab.getSetores()[p2.x][p2.y].getCima()){
+                                if(tab.portaCimaAberta(p2.x, p2.y)){
                                     System.out.printf("\n1 - Cima");
                                 }else{
                                     System.out.printf("\n1 - Porta de cima fechada");
                                 }
-                                if(tab.getSetores()[p2.x][p2.y].getBaixo()){
+                                if(tab.portaBaixoAberta(p2.x, p2.y)){
                                     System.out.printf("\n2 - Baixo");
                                 }else{
                                     System.out.printf("\n2 - Porta de baixo fechada");
                                 }
-                                if(tab.getSetores()[p2.x][p2.y].getDireita()){
+                                if(tab.portaDireitaAberta(p2.x, p2.y)){
                                     System.out.printf("\n3 - Direita");
                                 }else{
                                     System.out.printf("\n3 - Porta da Direita fechada");
                                 }
-                                if(tab.getSetores()[p2.x][p2.y].getEsquerda()){
+                                if(tab.portaEsquerdaAberta(p2.x, p2.y)){
                                     System.out.printf("\n4 - Esquerda");
                                 }else{
                                     System.out.printf("\n4 - Porta da Esquerda fechada");
