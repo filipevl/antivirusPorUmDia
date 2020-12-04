@@ -60,6 +60,7 @@ public abstract class Setor{
     }
     public void setVetor(Inimigo[] vetor){
         this.vetor=vetor;
+        System.out.printf("\n\t-Inimigos criados");
     }
 
     public void init(int numeroDeInimigos,int x,int y,Setor[][] setor,int acao){
@@ -70,8 +71,10 @@ public abstract class Setor{
             }
             setVetor(inimigos);
             setLados(x,y,setor,acao); 
+            System.out.printf("\n\t-Lados do setor - [%d,%d] criados",x,y);
             setInit();
         }else{
+            System.out.printf("\n\t-Setor - [%d,%d] já foi inicializado.",x,y);
             return;
         }
             
@@ -85,8 +88,9 @@ public abstract class Setor{
         switch (acao) {
             case 1: //Ir para cima
                 setor[x][y].setBaixo(true);
+                System.out.println(setor[x][y].getBaixo());
 
-                if(vizinhoEsquerda.getInit()){ //Vizinho de esquerda ja foi inicializado ?
+                if(vizinhoEsquerda !=null){ //Vizinho de esquerda ja foi inicializado ?
                     if(vizinhoEsquerda.getDireita()){ //Porta direita do vizinho da esquerda
                         setor[x][y].setEsquerda(true);
                     }else{
@@ -96,7 +100,7 @@ public abstract class Setor{
                     setor[x][y].setEsquerda(sortear());
                 }
                 
-                if(vizinhoDireita.getInit()){ //Vizinho da direita ja foi inicializado ?
+                if(vizinhoDireita !=null){ //Vizinho da direita ja foi inicializado ?
                     if(vizinhoDireita.getEsquerda()){ //Porta esquerda do vizinho da direita
                         setor[x][y].setDireita(true);
                     }else{
@@ -106,7 +110,7 @@ public abstract class Setor{
                     setor[x][y].setDireita(sortear());
                 }
                     
-                if(vizinhoCima.getInit()){ //Vizinho de cima ja foi inicializado ?
+                if(vizinhoCima !=null){ //Vizinho de cima ja foi inicializado ?
                     if(vizinhoCima.getBaixo()){
                         setor[x][y].setCima(true);
                     }else{
@@ -118,8 +122,9 @@ public abstract class Setor{
                 break;
             case 2: //Ir para baixo
                 setor[x][y].setCima(true);
+                System.out.println(setor[x][y].getCima());
 
-                if(vizinhoEsquerda.getInit()){ //Vizinho de esquerda ja foi inicializado ?
+                if(vizinhoEsquerda !=null){ //Vizinho de esquerda ja foi inicializado ?
                     if(vizinhoEsquerda.getDireita()){ //Porta direita do vizinho da esquerda
                         setor[x][y].setEsquerda(true);
                     }
@@ -130,7 +135,7 @@ public abstract class Setor{
                     setor[x][y].setEsquerda(sortear());
                 }
                 
-                if(vizinhoDireita.getInit()){ //Vizinho da direita ja foi inicializado ?
+                if(vizinhoDireita !=null){ //Vizinho da direita ja foi inicializado ?
                     if(vizinhoDireita.getEsquerda()){ //Porta esquerda do vizinho da direita
                         setor[x][y].setDireita(true);
                     }else{
@@ -142,7 +147,7 @@ public abstract class Setor{
                 }
                     
                   
-                if(vizinhoBaixo.getInit()){ //Vizinho de baixo ja foi inicializado ?
+                if(vizinhoBaixo !=null){ //Vizinho de baixo ja foi inicializado ?
                     if(vizinhoBaixo.getCima()){
                         setor[x][y].setBaixo(true);
                     }else{
@@ -154,8 +159,9 @@ public abstract class Setor{
                 break;
             case 3: // Ir para direita
                 setor[x][y].setEsquerda(true);
+                System.out.println(setor[x][y].getEsquerda());
 
-                if(vizinhoDireita.getInit()){ //Vizinho da direita ja foi inicializado ?
+                if(vizinhoDireita !=null){ //Vizinho da direita ja foi inicializado ?
                     if(vizinhoDireita.getEsquerda()){ //Porta esquerda do vizinho da direita
                         setor[x][y].setDireita(true);
                     }else{
@@ -165,7 +171,7 @@ public abstract class Setor{
                     setor[x][y].setDireita(sortear());
                 }
                     
-                if(vizinhoCima.getInit()){ //Vizinho de cima ja foi inicializado ?
+                if(vizinhoCima !=null){ //Vizinho de cima ja foi inicializado ?
                     if(vizinhoCima.getBaixo()){
                         setor[x][y].setCima(true);
                     }else{
@@ -175,7 +181,7 @@ public abstract class Setor{
                     setor[x][y].setCima(sortear());
                 }
 
-                if(vizinhoBaixo.getInit()){ //Vizinho de baixo ja foi inicializado ?
+                if(vizinhoBaixo !=null){ //Vizinho de baixo ja foi inicializado ?
                     if(vizinhoBaixo.getCima()){
                         setor[x][y].setBaixo(true);
                     }else{
@@ -188,8 +194,9 @@ public abstract class Setor{
                 break;
             case 4: // Ir para esquerda
                 setor[x][y].setDireita(true);
+                System.out.println(setor[x][y].getDireita());
 
-                if(vizinhoCima.getInit()){ //Vizinho de cima ja foi inicializado ?
+                if(vizinhoCima !=null){ //Vizinho de cima ja foi inicializado ?
                     if(vizinhoCima.getBaixo()){
                         setor[x][y].setCima(true);
                     }else{
@@ -199,7 +206,7 @@ public abstract class Setor{
                     setor[x][y].setCima(sortear());
                 }
 
-                if(vizinhoBaixo.getInit()){ //Vizinho de baixo ja foi inicializado ?
+                if(vizinhoBaixo !=null){ //Vizinho de baixo ja foi inicializado ?
                     if(vizinhoBaixo.getCima()){
                         setor[x][y].setBaixo(true);
                     }else{
@@ -209,7 +216,7 @@ public abstract class Setor{
                     setor[x][y].setBaixo(sortear());
                 }
 
-                if(vizinhoEsquerda.getInit()){ //Vizinho de esquerda ja foi inicializado ?
+                if(vizinhoEsquerda !=null){ //Vizinho de esquerda ja foi inicializado ?
                     if(vizinhoEsquerda.getDireita()){ //Porta direita do vizinho da esquerda
                         setor[x][y].setEsquerda(true);
                     }

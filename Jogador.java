@@ -1,5 +1,5 @@
 import java.util.Random;
-
+import java.util.Scanner;
 public abstract class Jogador {
     protected int atk, def, x, y;
     public Jogador(int atk, int def) {
@@ -21,6 +21,7 @@ public abstract class Jogador {
     public void movimentar(Tabuleiro tab, Jogador j, int movimento) {
         switch (movimento) {
             case 1: // Ir para cima
+                System.out.println(tab.getSetores()[j.x][j.y].getCima());
                 if (tab.getSetores()[j.x][j.y].getCima()) {
                     if(this.x - 1 > -1){
                         setX(this.x - 1);
@@ -76,34 +77,92 @@ public abstract class Jogador {
                 break;
         }
     }
-    // public void atacar(Inimigo i) {
-    //     int resultado = i.getDef()-this.atk;
-    //     if(resultado>0){
-    //         i.setDef(resultado);
-    //     }else{
-    //         return;
-    //     }
-    // }
+    public void atacar(Setor s,Jogador j) {
+        if(s instanceof SetorNormal){
+            Scanner ler = new Scanner(System.in);
+            Inimigo inimigos[] = new Inimigo[5];
+            int vet[] = new int[5];
+            for(int i=0;i<s.getInimigos().length;i++){
+                inimigos[i]=s.getInimigos()[i];
+                if(inimigos[i]!=null){
+                    vet[i]=1;
+                }else{
+                    vet[i]=0;
+                }
+            }
+            System.out.printf("\n\n\t -Mapa de inimigos do setor[%d,%d]",j.x,j.y);
+            for(int i=0;i<vet.length;i++){
+                System.out.printf("\nPosicao %d: %d\n",i,vet[i]);
+            }
+            System.out.printf("\nDigite uma posicao de inimigos para atacar");
+            int posicao = ler.nextInt();
+            
+            int resultado = s.getInimigos()[posicao].getDef()-this.atk;
+
+            if(resultado>0){
+                s.getInimigos()[posicao].setDef(resultado);
+            }else{
+                s.getInimigos()[posicao].setDef(0);
+                return;
+            }
+        }else if(s instanceof SetorOculto){
+            Inimigo inimigos[] = new Inimigo[5];
+            int vet[] = new int[5];
+            for(int i=0;i<s.getInimigos().length;i++){
+                inimigos[i]=s.getInimigos()[i];
+                if(inimigos[i]!=null){
+                    vet[i]=1;
+                }
+            }
+            Scanner ler = new Scanner(System.in);
+            System.out.printf("\nDigite uma posicao de inimigos para atacar");
+            int posicao = ler.nextInt();
+            int num = getIntervalo(0, 10);
+            if(num>3){
+                int resultado = s.getInimigos()[posicao].getDef()-this.atk;
+
+                if(resultado>0){
+                    s.getInimigos()[posicao].setDef(resultado);
+                }else{
+                    s.getInimigos()[posicao].setDef(0);
+                    return;
+                }
+            }else{
+                return;
+            }
+        }
+        
+    }
     public void procurar(Setor j) {
+        if(j instanceof SetorPrivado){
+            return;
+        }
         int num=getIntervalo(1, 6);
         if (num >= 1 || num <= 3) {
+            System.out.printf("\n\n\tNada encontrado no setor\n\n");
         }
         if (num == 4) {
+            System.out.printf("\n\nVoce ganhou 1 Def");
             setDef(this.def + 1);
         }
         if (num == 5) {
+            System.out.printf("\n\nVoce ganhou 2 Def");
             setDef(this.def + 2);
         }
         if (num == 6) {
-            setDef(this.def + 1);
+            System.out.printf("\n\nTodos os inimigos perdem 1 Def");
             Inimigo adv[] = new Inimigo[5];
             adv = j.getInimigos();
             for(int i=0;i<adv.length;i++){
-                if(adv[i].getAtk()==0){
-                    return;
+                if(adv[i]!=null){
+                    if(adv[i].getAtk()==0){
+                        return;
+                    }else{
+                        adv[i].setDef(adv[i].getDef()-1);
+                    }
                 }else{
-                    adv[i].setDef(adv[i].getDef()-1);
-                }
+                    return;
+                }   
             }
         }
     }

@@ -16,12 +16,22 @@ public class JogadorSuporte extends Jogador{
     }
 
     public void recuperarDefesaSimples(JogadorSimples j){
-        if(j.x == this.x && j.y == this.y)
+        if(j.x == this.x && j.y == this.y) {
+            System.out.printf("Defesa P1 recuperada em 2 pontos");
             j.setDef(j.def+2);
+            recuperarDefesaSuporte();
+        }
+        else{
+            recuperarDefesaSuporte();
+        }
     }
     public void recuperarDefesaSuporte(){
-        if(this.def>=1)
+        if(this.def>=1){
             setDef(def+2);
+            System.out.printf("Defesa P2 recuperada em 2 pontos");
+        }else{
+            return;
+        }
     }
 
     public void recuperarDefesa(JogadorSimples j){
@@ -30,14 +40,5 @@ public class JogadorSuporte extends Jogador{
         else
             return;
     }
-
-
-//     public void setAtk(JogadorSimples j, int atk){
-//         if(existe(j)){
-//             if(j.atk<this.atk){
-//                 this.atk = atk;
-//             }
-//         }
-//     }
 
 }
