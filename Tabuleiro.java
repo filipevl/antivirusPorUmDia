@@ -47,8 +47,9 @@ public class Tabuleiro{
             int atkDef = getIntervalo(1, 3);
             inimigos[i]= new Inimigo(atkDef,x,y);
         }
-        setLados(x, y, acao);
+        this.setores[x][y].setInit();
         this.setores[x][y].setInimigo(inimigos);
+        setLados(x, y, acao);
     }
     
     public boolean portaEsquerdaAberta(int posicaoX,int posicaoY){
@@ -81,28 +82,40 @@ public class Tabuleiro{
     }
 
     public void setLados(int x,int y,int acao){
-        Setor vizinhoEsquerda = this.setores[x][y-1];
-        Setor vizinhoDireita = this.setores[x][y+1];
-        Setor vizinhoCima = this.setores[x-1][y];
-        Setor vizinhoBaixo = this.setores[x+1][y];
+        Setor vizinhoEsquerda = getVizinhoEsquerda(x, y);
+        Setor vizinhoDireita = getVizinhoDireita(x, y);
+        Setor vizinhoCima = getVizinhoCima(x, y);
+        Setor vizinhoBaixo = getVizinhoBaixo(x, y);
         switch (acao) {
             case 1: //Ir para cima
                 this.setores[x][y].setBaixo(true);
 
-                if(vizinhoEsquerda.getDireita()){ //Porta direita do vizinho da esquerda
-                    this.setores[x][y].setEsquerda(true);
+                if(vizinhoEsquerda.getInit()){
+                    if(vizinhoEsquerda.getDireita()){ //Porta direita do vizinho da esquerda
+                        this.setores[x][y].setEsquerda(true);
+                    }else{
+                        this.setores[x][y].setEsquerda(sortear());
+                    }
                 }else{
                     this.setores[x][y].setEsquerda(sortear());
                 }
                 
-                if(vizinhoDireita.getEsquerda()){ //Porta esquerda do vizinho da direita
-                    this.setores[x][y].setDireita(true);
+                if(vizinhoDireita.getInit()){
+                    if(vizinhoDireita.getEsquerda()){ //Porta esquerda do vizinho da direita
+                        this.setores[x][y].setDireita(true);
+                    }else{
+                        this.setores[x][y].setDireita(sortear());
+                    }
                 }else{
                     this.setores[x][y].setDireita(sortear());
                 }
                     
-                if(vizinhoCima.getBaixo()){
-                    this.setores[x][y].setCima(true);
+                if(vizinhoCima.getInit()){  
+                    if(vizinhoCima.getBaixo()){
+                        this.setores[x][y].setCima(true);
+                    }else{
+                        this.setores[x][y].setCima(sortear());
+                    }
                 }else{
                     this.setores[x][y].setCima(sortear());
                 }
@@ -110,66 +123,100 @@ public class Tabuleiro{
             case 2: //Ir para baixo
                 this.setores[x][y].setCima(true);
 
-                if(vizinhoEsquerda.getDireita()){ //Porta direita do vizinho da esquerda
-                    this.setores[x][y].setEsquerda(true);
-                }
-                else{
+                if(vizinhoEsquerda.getInit()){
+                        if(vizinhoEsquerda.getDireita()){ //Porta direita do vizinho da esquerda
+                            this.setores[x][y].setEsquerda(true);
+                        }else{
+                            this.setores[x][y].setEsquerda(sortear());
+                        }
+                }else{
                     this.setores[x][y].setEsquerda(sortear());
                 }
+                    
+                if(vizinhoDireita.getInit()){
+                    if(vizinhoDireita.getEsquerda()){ //Porta esquerda do vizinho da direita
+                        this.setores[x][y].setDireita(true);
+                    }else{
+                        this.setores[x][y].setDireita(sortear());
+                    }
+                }else{
+                    this.setores[x][y].setDireita(sortear());
+                }
 
-                if(vizinhoDireita.getEsquerda()){ //Porta esquerda do vizinho da direita
-                    this.setores[x][y].setDireita(true);
+                if(vizinhoBaixo.getInit()){
+                    if(vizinhoBaixo.getCima()){
+                        this.setores[x][y].setBaixo(true);
+                    }else{
+                        this.setores[x][y].setBaixo(sortear());
+                    }
+                }else{
+                    this.setores[x][y].setBaixo(sortear());
+                } 
+                break;
+            case 3: // Ir para direita
+                this.setores[x][y].setEsquerda(true);
+                
+                if(vizinhoDireita.getInit()){
+                    if(vizinhoDireita.getEsquerda()){ //Porta esquerda do vizinho da direita
+                        this.setores[x][y].setDireita(true);
+                    }else{
+                        this.setores[x][y].setDireita(sortear());
+                    }
                 }else{
                     this.setores[x][y].setDireita(sortear());
                 }
                     
-                if(vizinhoBaixo.getCima()){
-                    this.setores[x][y].setBaixo(true);
-                }else{
-                    this.setores[x][y].setBaixo(sortear());
-                }
-                break;
-            case 3: // Ir para direita
-                this.setores[x][y].setEsquerda(true);
-
-                if(vizinhoDireita.getEsquerda()){ //Porta esquerda do vizinho da direita
-                    this.setores[x][y].setDireita(true);
-                }else{
-                    this.setores[x][y].setDireita(sortear());
-                }
-                
-                if(vizinhoCima.getBaixo()){
-                    this.setores[x][y].setCima(true);
+                if(vizinhoCima.getInit()){
+                    if(vizinhoCima.getBaixo()){
+                        this.setores[x][y].setCima(true);
+                    }else{
+                        this.setores[x][y].setCima(sortear());
+                    }
                 }else{
                     this.setores[x][y].setCima(sortear());
                 }
-                
-                if(vizinhoBaixo.getCima()){
-                    this.setores[x][y].setBaixo(true);
+                    
+                if(vizinhoBaixo.getInit()){
+                    if(vizinhoBaixo.getCima()){
+                        this.setores[x][y].setBaixo(true);
+                    }else{
+                        this.setores[x][y].setBaixo(sortear());
+                    }
                 }else{
                     this.setores[x][y].setBaixo(sortear());
                 }
-
                 break;
             case 4: // Ir para esquerda
                 this.setores[x][y].setDireita(true);
                 
-                if(vizinhoCima.getBaixo()){
-                    this.setores[x][y].setCima(true);
+                if(vizinhoCima.getInit()){
+                    if(vizinhoCima.getBaixo()){
+                        this.setores[x][y].setCima(true);
+                    }else{
+                        this.setores[x][y].setCima(sortear());
+                    }
                 }else{
                     this.setores[x][y].setCima(sortear());
                 }
-                
-                if(vizinhoBaixo.getCima()){
-                    this.setores[x][y].setBaixo(true);
+                    
+                if(vizinhoBaixo.getInit()){
+                    if(vizinhoBaixo.getCima()){
+                        this.setores[x][y].setBaixo(true);
+                    }else{
+                        this.setores[x][y].setBaixo(sortear());
+                    }
                 }else{
                     this.setores[x][y].setBaixo(sortear());
                 }
-                
-                if(vizinhoEsquerda.getDireita()){ //Porta direita do vizinho da esquerda
-                    this.setores[x][y].setEsquerda(true);
-                }
-                else{
+                    
+                if(vizinhoEsquerda.getInit()){
+                    if(vizinhoEsquerda.getDireita()){ //Porta direita do vizinho da esquerda
+                        this.setores[x][y].setEsquerda(true);
+                    }
+                    else{
+                        this.setores[x][y].setEsquerda(sortear());
+                    }
+                }else{
                     this.setores[x][y].setEsquerda(sortear());
                 }
                 break;
@@ -178,6 +225,34 @@ public class Tabuleiro{
         }
     }
 
+    public Setor getVizinhoEsquerda(int x,int y){
+        if(y-1<0){
+            return this.setores[x][0];
+        }else{
+            return this.setores[x][y-1];
+        }
+    }
+    public Setor getVizinhoDireita(int x,int y){
+        if(y+1>4){
+            return this.setores[x][4];
+        }else{
+            return this.setores[x][y+1];
+        }
+    }
+    public Setor getVizinhoCima(int x,int y){
+        if(x-1<0){
+            return this.setores[0][y];
+        }else{
+            return this.setores[x-1][y];
+        }
+    }
+    public Setor getVizinhoBaixo(int x,int y){
+        if(x+1>4){
+            return this.setores[4][y];
+        }else{
+            return this.setores[x+1][y];
+        }
+    }
     public boolean sortear(){
         int a = getIntervalo(1, 10);
         if(a>=3){

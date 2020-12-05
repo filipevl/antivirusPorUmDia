@@ -1,5 +1,5 @@
 public abstract class Setor{
-    private boolean esquerda, cima, direita, baixo,fonteDeInfeccao;
+    private boolean esquerda, cima, direita, baixo,fonteDeInfeccao,init;
     private Inimigo[] vetor = new Inimigo[5];
     
     public Setor(char c){
@@ -8,12 +8,15 @@ public abstract class Setor{
         this.direita=true;
         this.baixo=true;
         this.fonteDeInfeccao=false;
+        setInit();
     } // Construtor do setor C
     public Setor(boolean fonte){
         this.fonteDeInfeccao=true;
+        setInit();
     } // Construtor setor infeccao
     public Setor(){
         this.fonteDeInfeccao=false;
+        this.init =false;
     }
 
     public Inimigo[] getInimigos(){
@@ -34,7 +37,13 @@ public abstract class Setor{
     public boolean getDireita(){
         return this.direita;
     }
-    
+    public boolean getInit(){
+        return this.init;
+    }
+
+    public void setInit(){
+        this.init =true;
+    }
     public void setDireita(boolean d){
         this.direita=d;
     }
