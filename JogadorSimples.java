@@ -6,6 +6,6 @@ public class JogadorSimples extends Jogador{
         this.atk = atk;
     }
     public void setDef(int def){
-        this.atk = def;
+        this.def = def;
     }
 }
